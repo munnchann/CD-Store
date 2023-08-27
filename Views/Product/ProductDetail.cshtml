@@ -1,0 +1,98 @@
+﻿@model MHN.Models.Product
+
+@{
+    Layout = "~/Views/Shared/_Layout_Store.cshtml";
+}
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="@Url.Action("Index","Home")">Home</a> <span class="mx-2 mb-0">/</span> <a href="@Url.Action("Index","Product")">Shop</a> <span class="mx-2 mb-0">/</span><strong class="text-black">@Model.Name_Product</strong></div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-6">
+                <img src="~/Content/Images/@Url.Content(Model.Img)" alt="Image" class="img-fluid">
+            </div>
+            <div class="col-md-6">
+                <h2 class="text-black" style="font-weight:600;">@Model.Name_Product</h2>
+                <p>Description: @Model.Content</p>            
+                <p><strong class="text-primary h4" style="color: #fd8fa1!important;">$@Model.Price</strong></p>
+              
+                <div class="mb-5">
+                    <div class="input-group mb-3" style="max-width: 120px;">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-primary btn-minus-detail" id="mi" data-id="@Model.Id" type="button">&minus;</button>
+                        </div>
+                        <input type="text" class="form-control text-center" id="txt_quantity_" value="1" aria-valuemin="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary btn-plus-detail" id="plus" data-id="@Model.Id" type="button">&plus;</button>
+
+                        </div>
+                    </div>                  
+                    <span id="mess"></span>
+                </div>
+                <p><a class="btn btn-add-cart" id="add" style="display: inline;background: #fd8fa1;color: #fff;" data-id="@Model.Id">Add To Cart</a></p>
+
+                <hr style="border-top: 2px solid rgb(0 0 0 / 31%); " />
+                <div class="mb-5" style="min-height:200px;">
+                    <div class="row">
+                        <div class="item col-lg-4 col-md-4 col-sm-12 col-xs-12 d-flex align-items-center" style="color :#000;flex: 0 0 40%;max-width: 36%;font-size: 15px;font-weight: 600;">
+                            <img class="icon_" src="~/asset/images/icon_ship.png" />
+                            <p>Nationwide delivery for orders from $5</p>
+                        </div>
+                        <div class="item col-lg-4 col-md-4 col-sm-12 col-xs-12 d-flex align-items-center" style="color :#000; flex: 0 0 40%; max-width: 30%; font-size: 15px; font-weight: 600;">
+                            <img class="icon_" src="~/asset/images/icon_cod.png" />
+
+                            <p>COD inner city HN, HCM</p>
+                        </div>
+                        <div class="item col-lg-4 col-md-4 col-sm-12 col-xs-12 d-flex align-items-center" style="color: #000; flex: 0 0 40%; max-width: 33%; font-size: 15px; font-weight: 600;">
+                            <img class="icon_" src="~/asset/images/icon_doi tra.png" />
+
+                            <p>Check the goods before receiving</p>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top:8px;">
+                        <div class="item col-lg-3 col-md-3 col-sm-12 col-xs-12 d-flex align-items-center" style="display:block !important;max-width: 7%;padding-top: 4%;">
+                            <img src="~/asset/images/icon_policy.png" />
+                        </div>
+                        <div class="item col-lg-9 col-md-9 col-sm-12 col-xs-12 d-flex align-items-center" style="color: #000;font-size: 15px;
+    font-weight: 600;display:block !important;">
+
+                            <p>Support to ship $1 for orders from $15 in Hanoi and HCM city</p>
+                            <p>Support ship $2 for orders from $30 other areas</p>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section block-3 site-blocks-2 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 site-section-heading text-center pt-4">
+                <h2>Some Other Products</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="nonloop-block-3 owl-carousel">
+                    @Html.Action("ListPro", "Product")
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/cart.js"></script>
+}

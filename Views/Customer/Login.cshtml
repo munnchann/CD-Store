@@ -1,0 +1,59 @@
+﻿@model MHN.Models.Customer
+@{
+    Layout = null;
+    <script src="~/asset/js/bootstrap.min.js"></script>
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LoginUser</title>
+    <link href="~/Ui/Style.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="screen">
+            <div class="screen__content">
+                <form class="login" id="registration">
+                    <span id="pass"></span>
+                    <h4>Sign In</h4>
+
+                    <div class="login__field">
+                        <i class="login__icon fas fa-phone"></i>
+                        <label>Phone</label>
+                        @Html.TextBoxFor(m => m.Phone, "", new { @class = "login__input", @placeholder = "Phone" })
+                    </div>
+                    <div class="login__field">
+                        <label>Password</label>
+                        @Html.PasswordFor(m => m.Password, new { @class = "login__input", @placeholder = "Password" })
+                    </div>
+                    <button class="button login__submit">
+                        <span type="submit" name="submit" class="button__text" value="Login">Log in now</span>
+                        <i class="button__icon fas fa-chevron-right"></i>
+                    </button>
+                    <div class="social-login">
+                        <a href="@Url.Action("Register","Customer")">
+                            <h5 style="margin:40px">
+                                Sign in here
+                            </h5>
+                        </a>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <script type="text/javascript">
+    var yourApp = yourApp || {};
+    yourApp.Urls = yourApp.Urls || {};
+    yourApp.Urls.baseUrl = '@Url.Content("~")';
+        yourApp.Urls.registerUrl = '@Url.Action("Register", "Customer")';
+    </script>
+    <script src="~/Scripts/MyScripts.js"></script>
+</body>
+
+</html>

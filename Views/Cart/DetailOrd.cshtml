@@ -1,0 +1,90 @@
+﻿@model List<MHN.Models.Ord_Detail>
+
+@{
+    ViewBag.Title = "DetailOrd";
+    Layout = "~/Views/Shared/_Layout_Store.cshtml";
+}
+
+<section class="section-content padding-y">
+    <div class="container">
+        <div class="row_">
+            <main class="col-md-9" style="margin: auto;padding-top: 38px;">
+                <h3 style="color: darkcyan; font-weight: 600; font-family: Georgia, serif;">Detail Order</h3>
+                <hr />
+                <div class="card" style="box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);">
+                    <table class="table table-borderless table-shopping-cart">
+                        <thead class="text-muted">
+                            <tr class="small text-uppercase">
+                                <th scope="col">Product</th>
+                                <th scope="col" width="120">Quantity</th>                              
+                                <th scope="col" width="120">Total</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            @foreach (var item in Model)
+                            {
+
+                                <tr id="product-@item.Id_Ord">
+                                    <td>
+                                        <figure class="itemside">
+                                            <div class="aside"><img src="~/Content/Images/@item.Product.Img" class="img-sm"></div>
+                                            <figcaption class="info">
+                                                <a href="#" class="title text-dark">@item.Product.Name_Product</a>
+                                            </figcaption>
+                                        </figure>
+                                    </td>
+                                    <td>
+                                        <var class="txtQuantity">@item.Qty</var>
+                                    </td>
+                                   
+                                    <td>
+                                        <div class="price-wrap">
+
+                                            <var class="price">@item.totalDetail</var>
+                                        </div> <!-- price-wrap .// -->
+                                    </td>
+
+                                </tr>
+}
+
+                        </tbody>
+
+                    </table>
+
+                </div> <!-- card.// -->
+            </main>
+        </div>
+
+    </div> <!-- container .//  -->
+</section>
+<style>
+    .text-muted {
+        font-weight: 500;
+        background: rgba(33, 40, 50, 0.03);
+    }
+
+    .row_ {
+        display: -webkit-box;
+        flex-wrap: wrap;
+        padding: 0rem;
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    .padding-y {
+        min-height: 550px;
+        background: #f2f6fc;
+    }
+
+    .aside img {
+        width: 100px;
+    }
+
+    .title {
+        font-weight: 700;
+    }
+</style>
+

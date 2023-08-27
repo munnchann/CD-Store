@@ -1,0 +1,46 @@
+﻿@using MHN.Models
+@model MHN.Models.Product
+@{
+    ViewBag.Title = "ViewDetail";
+    Layout = "~/Areas/Admin/Views/Shared/Layout_Admin.cshtml";
+
+    MHN_CoffeeEntities db = new MHN_CoffeeEntities();
+    CategoryProduct cp = db.CategoryProducts.Find(Model.CateProduct);
+
+    <script src="~/Theme/js/boxOver.js"></script>
+
+    <link href="~/Theme/css/style.css" rel="stylesheet" />
+}
+
+@if (Model == null)
+{
+    <div class="center_title_bar">Not exist</div>
+}
+else
+{
+    <div>@Model.Name_Product</div>
+    <div class="prod_box_big">
+        <div class="center_prod_box_big">
+            <div class="product_img_big">
+                <img src="~/Content/File/@Model.Images">
+                @*<div class="thumbs"> <a href="#" title="header=[Thumb1] body=[&nbsp;] fade=[on]"><img src="@Model.imgpath" alt="" border="0"></a> <a href="#" title="header=[Thumb2] body=[&nbsp;] fade=[on]"><img src="@Model.imgpath" alt="" border="0"></a> <a href="#" title="header=[Thumb3] body=[&nbsp;] fade=[on]"><img src="@Model.imgpath" alt="" border="0"></a> </div>*@
+            </div>
+            <div class="details_big_box">
+                <div class="product_title_big">@Model.Name_Product</div>
+                <div class="specifications">
+                   Category:
+                    @if (cp != null)
+                    {
+                        <span class="blue">@cp.Category_Name </span>
+
+                    }
+                  
+                    Description :<span class="blue"> @Model.Description_Product </span><br>
+                </div>
+                <div class="prod_price_big"><span class="reduce">@Model.Price</div>
+                <a href="~/Admin/Product/UpdateProduct?id=@Model.ProductId" class="prod_buy">Update</a>
+            </div>
+        </div>
+    </div>
+}
+

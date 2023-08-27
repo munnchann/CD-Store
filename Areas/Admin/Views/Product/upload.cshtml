@@ -1,0 +1,111 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UploadFiles</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <div>
+        <style>
+            .red {
+                color: red;
+            }
+        </style>
+        <form id="uploader">
+            <div class="row">
+                <div class="col-sm-6">
+                    User Name : <input type="text" id="txtuploader" />
+                    <br />            <br />
+                    <input id="fileInput" type="file" multiple>
+                    <br />            <br />
+
+                    <table class="table" id="FilesList" style="visibility:hidden">
+                        <tr>
+                            <th>
+                                Attachment(s)
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </table>
+
+                    <input type="button" id="btnupload" value="Upload" style="float:right" />
+                    <div class="img_uploaded">
+                        <img style="width: 200px; height: 300px" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+
+        var formdata = new FormData(); //FormData object
+        $(document).ready(function () {
+
+            $("#fileInput").on("change", function () {
+                var fileInput = document.getElementById('fileInput');
+                //Iterating through each files selected in fileInput
+                for (i = 0; i < fileInput.files.length; i++) {
+
+                    var sfilename = fileInput.files[i].name;
+                    let srandomid = Math.random().toString(36).substring(7);
+
+                    formdata.append(sfilename, fileInput.files[i]);
+
+                    var markup = "<tr id='" + srandomid + "'><td>" + sfilename + "</td><td><a href='#' onclick='DeleteFile(\"" + srandomid + "\",\"" + sfilename +
+                        "\")'><span class='glyphicon glyphicon-remove red'></span></a></td></tr>"; // Binding the file name
+                    $("#FilesList tbody").append(markup);
+
+                }
+                chkatchtbl();
+                $('#fileInput').val('');
+            });
+
+            $("#btnupload").click(function () {
+                formdata.append('uploadername', $('#txtuploader').val());
+                $.ajax({
+                    url: '/Admin/Product/UploadFiles',
+                    type: "POST",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: formdata,
+                    async: false,
+                    success: function (result) {
+                        if (result != "") {
+                            alert(result);
+                            var myPath = "~/Uploads/" + result;
+                            $(".img_uploaded").attr("src", myPath);
+                        }
+                    },
+                    error: function (err) {
+                        alert(err.statusText);
+                    }
+                });
+            });
+        });
+        function DeleteFile(Fileid, FileName) {
+            formdata.delete(FileName)
+            $("#" + Fileid).remove();
+            chkatchtbl();
+        }
+        function chkatchtbl() {
+            if ($('#FilesList tr').length > 1) {
+                $("#FilesList").css("visibility", "visible");
+            } else {
+                $("#FilesList").css("visibility", "hidden");
+            }
+        }
+    </script>
+</body>
+
+</html>

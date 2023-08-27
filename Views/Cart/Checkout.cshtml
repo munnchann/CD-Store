@@ -1,0 +1,140 @@
+﻿@using System.Configuration
+@model List<MHN.Models.CartModel>
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_Layout_Store.cshtml";
+}
+
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <a href="#">Cart</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Checkout</strong></div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="row mb-12">
+                    <div class="col-md-12">
+                        <h2 class="h3 mb-3 text-black">Your Order</h2>
+                        <form action="@ConfigurationManager.AppSettings["PostUrl"]" id="form1" onsubmit="return ajaxRequest()">
+                            <input type="hidden" name="upload" value="1" />
+                            <input type="hidden" name="cmd" value="_cart" />
+                            <input type="hidden" name="return" value="@ConfigurationManager.AppSettings["ReturnUrl"]" />
+                            <input type="hidden" name="business" value="@ConfigurationManager.AppSettings["Business"]" />
+                            <div class="p-3 p-lg-5 border" style="border-radius: 15px; background: #c9def0; box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%); border: 3px solid #dee2e6!important; ">
+                                <table class="table site-block-order-table mb-5">
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Total</th>
+                                            <th>Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{ var index = 1;}
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>@item.product.Name_Product <strong class="mx-2">x</strong> @item.Quantity</td>
+                                                <td>@(Convert.ToDecimal(item.product.Price * item.Quantity))</td>
+
+                                                <td>
+                                                    @item.Quantity
+                                                    <input type="hidden" name="item_number_@index" value="@item.product.Id" />
+                                                    <input type="hidden" name="item_name_@index" value="@item.product.Name_Product" />
+                                                    <input type="hidden" name="amount_@index" value="@item.product.Price" />
+                                                    <input type="hidden" name="quantity_@index" value="@item.Quantity" />
+                                                </td>
+                                            </tr>
+                                            index++;
+
+                                        }
+                                        <tr>
+                                            <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
+                                            <td class="text-black">$@Model.Sum(x => x.Quantity * x.product.Price)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
+                                            <td class="text-black font-weight-bold"><strong>$@ViewBag.TotalMoney</strong></td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                               
+                                <div class="border p-3 mb-3" style="background: white;">
+                                    <div class="col-md-4">
+                                        <select name="TransportName" asp-items="@ViewBag.Transport" class="form-control" id="trans">
+                                            <option value="">-- Choose payment method --</option>
+                                            <option value="COD">COD</option>
+                                            <option value="PayPal">PayPal</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div class="hidden" id="pD">
+                                    @using (Html.BeginForm("GetDataPaypal", "Paypal", FormMethod.Post))
+                                    {
+                                        <button id="btnPlaceOrder" type="submit" class="btn btn-primary btn-lg py-3 btn-block">Payment Now</button>}
+                                </div>
+                                <div class="hidden" id="cc">
+                                    <span class="btn btn-primary btn-lg py-3 btn-block" id="btnPlaceOrder1">
+                                        Place Order
+                                    </span>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- </form> -->
+</div>
+@section scripts{
+    <script src="~/Scripts/cart.js"></script>
+}
+<style>
+
+
+    .site-section {
+        padding: 0;
+    }
+
+    .mb-0 {
+        padding: 20px !important;
+    }
+
+    .col-md-12 {
+        padding: 50px;
+    }
+
+    .lb {
+        margin-right: 16px;
+    }
+
+    .trnone {
+        border-top: 1px solid #fff !important;
+        padding: 0px !important;
+    }
+
+    .col-md-4 {
+        max-width: 100%;
+    }
+
+    .table td {
+        border-top: 1px solid #7b9aff;
+    }
+
+    .form-control {
+        border: 1px solid;
+    }
+</style>

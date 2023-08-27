@@ -1,0 +1,59 @@
+﻿@model IEnumerable<MHN.Models.Content_Blog>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/Layout_Admin.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Create New", "NewBlog")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            <label>Name</label>
+        </th>
+        <th>
+            <label>Description</label>
+        </th>
+        <th>
+            <label>Active?</label>
+        </th>
+        <th>
+            <label>Image</label>
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name_Content)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Description_Content)
+    </td>
+    @if (item.Active == true)
+    {
+        <td>
+            <label>Active</label>
+        </td>
+    }
+    else
+    {
+        <td>
+            <label>Not Active</label>
+        </td>
+    }
+    <td>
+        <img style="width:70px; height: 50px" src="~/Content/Images/@item.Images" alt="Image placeholder" class="img-fluid">
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "EditBlog", new { id = item.Id }) |
+        <span>
+            <a href="#" onclick="if (confirm('Do you want to delete this?') == true) { location.href = '/Admin/Blog/DeleteBlog?id=@item.Id' }" class="prod_buy">Delete</a>
+        </span>
+    </td>
+</tr>
+}
+
+</table>

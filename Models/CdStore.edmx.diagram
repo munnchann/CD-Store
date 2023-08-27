@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e6c42d1ed3b54e3a8a9601dc83e1e051" Name="Diagram1">
+        <EntityTypeShape EntityType="CDStore_OnlineModel.Category" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CDStore_OnlineModel.Customer" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CDStore_OnlineModel.Manufacture" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CDStore_OnlineModel.Ord" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CDStore_OnlineModel.Ord_Detail" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CDStore_OnlineModel.Product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="CDStore_OnlineModel.FK__Products__Id_Cat__1DE57479" ManuallyRouted="false" />
+        <AssociationConnector Association="CDStore_OnlineModel.FK__Ord__CustomerId__1B0907CE" ManuallyRouted="false" />
+        <AssociationConnector Association="CDStore_OnlineModel.FK__Products__Id_Man__1ED998B2" ManuallyRouted="false" />
+        <AssociationConnector Association="CDStore_OnlineModel.FK__Ord_Detai__Id_Or__21B6055D" ManuallyRouted="false" />
+        <AssociationConnector Association="CDStore_OnlineModel.FK__Ord_Detai__Id_Pr__22AA2996" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CDStore_OnlineModel.sysdiagram" Width="1.5" PointX="3.375" PointY="4.75" />
+        <EntityTypeShape EntityType="CDStore_OnlineModel.Bill" Width="1.5" PointX="3" PointY="12.375" />
+        <AssociationConnector Association="CDStore_OnlineModel.FK__Bill__CustomerId__32E0915F" />
+        <AssociationConnector Association="CDStore_OnlineModel.FK__Ord__Id_Bill__33D4B598" />
+        <AssociationConnector Association="CDStore_OnlineModel.Fk_Bill" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

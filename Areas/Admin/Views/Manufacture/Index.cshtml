@@ -1,0 +1,31 @@
+﻿@model IEnumerable<MHN.Models.Manufacture>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/Layout_Admin.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Create New", "NewManufacture")
+</p>
+<table class="table">
+    <tr>
+        <th style="text-align: start; padding-left: 30px;">
+           Name
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditManufacture", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "DeleteManufacture", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

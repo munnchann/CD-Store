@@ -1,0 +1,26 @@
+﻿@model MHN.Models.Product
+<link href="~/Ui/viewDetail.css" rel="stylesheet" />
+<div class="popup popup-add-product" id="dialogView" style="width: 450px; height: 300px; top: calc(50% - 250px); left: calc(50% - 325px);">
+    <div class="popup-title"></div>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="popup-content">
+        <div class="popup-choose-product">
+            <div class="ss-1 product-infomation">
+                <div class="ss-1-left">
+                    <img id="pp-product-img" src="~/Content/Images/@Model.Img" alt="">
+                </div>
+                <div class="ss-1-right">
+                    <div id="pp-product-name" class="product-name">@Model.Name_Product</div>
+                    <div class="product-price">
+                        <div id="pp-product-price" class="price">$@Model.Price</div>
+                    </div>
+                    <div id="pp-product-short-desc" class="product-info">@Model.Content</div>
+                    <div id="pp-product-short-desc" class="product-info category">@Model.Category.Category_Name</div>
+                    <div id="pp-product-short-desc" class="product-info manufacture">@Model.Manufacture.Name</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

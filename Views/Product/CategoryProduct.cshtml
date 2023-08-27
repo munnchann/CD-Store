@@ -1,0 +1,8 @@
+﻿@model List<MHN.Models.Category>
+<ul class="list-unstyled mb-0">
+    @foreach (var item in Model)
+    {
+        <li class="mb-1"><a href="@Url.Action("FindProByCate", "Product", new { Id = item.Id })" class="d-flex">@item.Category_Name</a></li>
+
+    }
+</ul>

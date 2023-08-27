@@ -1,0 +1,108 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<MHN.Models.Ord>
+@{
+    ViewBag.Title = "Confirm";
+    Layout = "~/Areas/Admin/Views/Shared/Layout_Admin.cshtml";
+    <link href="~/Content/styleTracking.css" rel="stylesheet" />
+}
+
+<div class="col-md-12">
+    @*@{var view = ViewData["ViewPro"] as PagedList.IPagedList<ShopOnline.Models.ProductViewModel>;*@
+    <div class="card">
+        <div class="card-header card-header-primary">
+            <h4 class="card-title " style="margin:30px">Wait for Confirm</h4>
+            <a class="btn btn-white  btn-sm" href="@Url.Action("Confirm","OrdManager")">Wait for Confirmation</a>
+            <a class="btn btn-white  btn-sm" href="@Url.Action("Confirmed","OrdManager")">Confirmed</a>
+            <a class="btn btn-white  btn-sm" href="@Url.Action("Delivering","OrdManager")">Delivering</a>
+            <a class="btn btn-white  btn-sm" href="@Url.Action("Delivered","OrdManager")">Delivered</a>
+
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table" style="margin-top:20px">
+                    <thead class=" text-primary">
+                    <th>
+                        TranspotID
+                    </th>
+                    <th>
+                        Customer
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Payment
+                    </th>
+                    <th>
+                    </th>
+                    </thead>
+                    <tbody>
+
+
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Id
+                                </td>
+                                <td>
+                                    @item.Customer.Name
+                                </td>
+                                <td>
+                                    @item.DateOrd
+                                </td>
+                                <td id="st">
+                                    <span class="Status">
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="stt">
+                                        @item.Bill.Stt
+                                    </span>
+                                </td>
+
+                                <td>
+                                </td>
+                                <td class="text-primary">
+                                    @Html.ActionLink("Detail", "DetailOrd", new { id = item.Id_Bill }, new { @class = "btn btn-info btn-sm" })|
+                                    <a class="btn btn-danger btn-sm" onclick="Confirmed('@Url.Action("updateStatus", "OrdManager", new { id = item.Id})')"> Confirmed</a>
+                                </td>
+                            </tr>
+
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 ">
+            <div class="pagination font-alt">
+                @Html.PagedListPager(Model, page => Url.Action("Confirm", new
+                { page, currentFilter = ViewBag.CurrentFilter }))
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function Confirmed(url) {
+        $.ajax({
+            type: 'POST',
+            url: url,
+            success: function (res) {
+                window.location.href = "/Admin/OrdManager/Confirmed"
+            }
+        });
+    }
+</script>
+

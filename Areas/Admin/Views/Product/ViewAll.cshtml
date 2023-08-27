@@ -1,0 +1,136 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<MHN.Models.Product>
+
+@{
+    ViewBag.Title = "ViewAll";
+    Layout = null;
+}
+<table class="table">
+    <tr>
+        <th>
+           Product Name
+        </th>
+        <th>
+           Price
+        </th>
+        <th>
+           Content
+        </th>
+        <th>
+           Image
+        </th>
+        <th>
+           Category
+        </th>
+        <th>
+           Manufacture
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name_Product)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                <img style="width:70px; height: 50px" src="~/Content/Images/@item.Img" alt="Image placeholder" class="img-fluid">
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Category_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Manufacture.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditProduct", new { id = item.Id }) |
+                <span>
+                    <a href="#" onclick="if (confirm('Do you want to delete?') == true) { location.href = '/Admin/Product/DeleteProduct?id=@item.Id' }" class="prod_buy">Delete</a>
+                </span>
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="row">
+    <div class="col-md-12 ">
+        <div class="pagination font-alt">
+            @Html.PagedListPager(Model, page => Url.Action("ViewAll", new
+            { page, currentFilter = ViewBag.CurrentFilter }))
+        </div>
+    </div>
+</div>
+<style>
+    .edit {
+        width: 80px;
+    }
+
+    .table tr {
+        border-bottom: 1.3px solid;
+    }
+
+        .table tr td {
+        }
+
+    .pagination {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+        .pagination > li {
+            width: 25px;
+            height: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: 1px solid;
+            border-radius: 10%;
+            background-color: rebeccapurple;
+        }
+
+            .pagination > li > a:hover,
+            .pagination > li > span:hover,
+            .pagination > li > a:focus,
+            .pagination > li > span:focus {
+                background-color: #eeeeee;
+                width: 25px;
+                color: #000;
+            }
+
+        .pagination > .active > a,
+        .pagination > .active > span,
+        .pagination > .active > a:hover,
+        .pagination > .active > span:hover,
+        .pagination > .active > a:focus,
+        .pagination > .active > span:focus {
+            z-index: 2;
+            color: #000000;
+            width: 25px;
+            cursor: default;
+            background: #d4e0fc;
+        }
+
+    .page {
+        width: 350px;
+    }
+
+    .numberpage {
+        width: 155px;
+        height: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        float: inherit;
+    }
+</style>

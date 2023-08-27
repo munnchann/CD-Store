@@ -1,0 +1,95 @@
+﻿@model MHN.Models.Product
+
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("CreateProduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <form method="post" id="create" class="form" enctype="multipart/form-data">
+        <div class="row">
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="col-md-6">
+                    <div class="form-group">
+
+                        <div class="col-md-10">
+                            <label>Name</label>
+                            @Html.EditorFor(model => model.Name_Product, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Name_Product, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <div class="col-md-10">
+                            <label>Description</label>
+                            @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <div class="col-md-10">
+                            <label>Price</label>
+                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" }})
+                            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <label>ManufactureList</label>
+                            @{
+                                MHN.Models.CDStore_OnlineEntities manufac = new MHN.Models.CDStore_OnlineEntities();
+                                var manu = manufac.Manufactures.ToList();
+                                <select name="Id_Manufacture" style=" border: 2px solid #e7e1e1; border-radius:5px">
+                                    @foreach (var item in manu)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                </select>
+                            }
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <label>Category</label>
+                            @{
+                                MHN.Models.CDStore_OnlineEntities pro = new MHN.Models.CDStore_OnlineEntities();
+                                var product = pro.Categories.ToList();
+                                <select name="Id_Category" style=" border: 2px solid #e7e1e1; border-radius:5px">
+                                    @if (product != null)
+                                    {
+
+                                        foreach (var item in product)
+                                        {
+                                            <option value="@item.Id">@item.Category_Name</option>
+                                        }
+                                    }
+                                </select>
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" style="padding: -400px; margin: 0px 20px;" class="btn btn-default" />
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <label>Image</label>
+                            <img src="@Url.Content("/AppFile/Images/cuu.jpg")" style="margin: 10px; height: 200px" id="imgPreview" />
+                            <input type="file" class="" name="UploadImages" accept="image/jpeg, image/png, imgae/jpg" onchange="ShowImgPreview(this, document.getElementById('imgPreview'))" required/>
+                            @Html.ValidationMessageFor(model => model.Img, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+}

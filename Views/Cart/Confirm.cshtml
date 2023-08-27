@@ -1,0 +1,81 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<MHN.Models.Ord>
+@{
+    ViewBag.Title = "Confirm";
+    Layout = "~/Views/Shared/_Layout_Store.cshtml";
+    <link href="~/Ui/styleTracking.css" rel="stylesheet" />
+}
+
+<div style="text-align:center;">
+    <div class="ZS1kj6">
+        <a class="_2sowby" href="/Cart/Confirm"><span class="_2pSH8O">Wait for Confirmation</span></a>
+        <a class="_2sowby" href="/Cart/Confirmed"><span class="_2pSH8O">Confirmed</span></a>
+        <a class="_2sowby _23VQQX" href="/Cart/Delivering"><span class="_2pSH8O">Delivering</span></a>
+        <a class="_2sowby" href="/Cart/Delivered"><span class="_2pSH8O">Delivered</span></a>
+        <a href="/Cart/Cancel" class="_2sowby"><span class="_2pSH8O">Cancel</span></a>
+    </div>
+</div>
+<div class="tb">
+    <table class="table" style="margin-bottom:20px">
+        <tr>
+            <th>
+                TranspotID
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Date Order
+            </th>
+            <th>
+                Payment
+            </th>
+
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    <span id="idord">
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </span>
+                </td>
+
+                <td>
+                    <span class="Status">
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </span>
+
+                </td>
+                <td>
+                    <span>
+                        @Html.DisplayFor(modelItem => item.DateOrd)
+                    </span>
+                </td>
+                <td>
+                    <span id="stt" class="stt">
+                        @Html.DisplayFor(modelItem => item.Bill.Stt)
+                    </span>
+                </td>
+                <td>
+
+                    @Html.ActionLink("Detail", "Detailord", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                    <a class="btn btn-danger btn-sm" style=" background: #ff5959; color: #fff;" onclick="Cancel('@Url.Action("Delete", "Cart", new { id = item.Id, status = item.Bill.Stt })')" id="cancel" data-status="@item.Bill.Stt" data-id="@item.Id">Cancel</a>
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>
+
+<div class="row" data-aos="fade-up">
+    <div class="col-md-12 text-center">
+        <div class="site-block-27">
+            @Html.PagedListPager(Model, page => Url.Action("Confirm", new
+            { page, currentFilter = ViewBag.CurrentFilter }))
+        </div>
+    </div>
+</div>
+

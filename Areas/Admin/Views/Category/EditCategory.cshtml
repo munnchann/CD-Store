@@ -1,0 +1,33 @@
+﻿@model MHN.Models.Category
+@{
+    Layout = "~/Areas/Admin/Views/Shared/Layout_Admin.cshtml";
+}
+
+@using (Html.BeginForm("EditCategory", "Category", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    <div class="form-group" style="margin: 10px">
+        <label>Category Name</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Category_Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Category_Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="checkbox">
+            @Html.HiddenFor(model => model.Status)        
+        </div>
+
+    </div>
+    <div class="form-group" style="margin: 10px">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" name="submit" class="btn btn-primary" value="Update" />
+        </div>
+    </div>
+</div>
+}
+

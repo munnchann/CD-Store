@@ -1,0 +1,75 @@
+﻿@model MHN.Models.Customer
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link href="~/Ui/StyleRegister.css" rel="stylesheet" />
+</head>
+<body>
+
+    @Html.ValidationSummary(false, "", new { @class = "error" })
+    <div class="container">
+    </div>
+    <div class="row centered-form">
+        <form id="register">
+
+            <h4> Register </h4>
+
+            <div class="form-group">
+                <label>Name</label>
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Name", @data_error = "Enter Name" })
+                @Html.ValidationMessageFor(x => x.Name)
+            </div>
+
+            <div class="form-group">
+                <label>Address</label>
+                @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @placeholder = "Address", @data_error = "Enter Address" })
+                @Html.ValidationMessageFor(x => x.Address)
+            </div>
+
+
+            <div class="form-group">
+                <label>Phone</label>
+                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @placeholder = "Phone", @data_error = "Enter Phone" })
+                @Html.ValidationMessageFor(x => x.Phone)
+                <span id="phonemain"></span>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>Email</label>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email", @data_error = "Enter Email" })
+                        @Html.ValidationMessageFor(x => x.Email)
+                        <span id="message"></span>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label>Password</label>
+                        @Html.PasswordFor(m => m.Password, new { @id = "inputPassword", @class = "form-control", @placeholder = "Password", @data_minlength = "6" })
+                        @Html.ValidationMessageFor(x => x.Password)
+                    </div>
+                </div>
+
+            </div>
+            <input type="submit" value="Register" class="log-in">
+            <a id="done" href="@Url.Action("Login", "Customer")"></a>
+        </form>
+    </div>
+    <script type="text/javascript">
+    var yourApp = yourApp || {};
+    yourApp.Urls = yourApp.Urls || {};
+    yourApp.Urls.baseUrl = '@Url.Content("~")';
+    yourApp.Urls.registerUrl = '@Url.Action("Register", "Customer")';
+    </script>
+    <script src="~/Scripts/MyScripts.js"></script>
+</body>
+</html>
