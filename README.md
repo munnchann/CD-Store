@@ -13,5 +13,6 @@ Simple mini SD Store online
 - Page client
   - Main page
   - Product/Category page
+  - Login/ Register user
   - Order -> Paypal payment
   - Tracking
